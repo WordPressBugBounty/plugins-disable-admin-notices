@@ -1,9 +1,7 @@
 <?php
 /**
  * Этот файл инициализирует этот плагин, как аддон для плагина Clearfy.
- *
- * Файл будет подключен только в плагине Clearfy, используя особый вариант загрузки. Это более простое решение
- * пришло на смену встроенной системы подключения аддонов в фреймворке.
+ * 
  *
  * Github: https://github.com/alexkovalevv
  *
@@ -44,7 +42,7 @@ if ( ! defined( 'WDN_PLUGIN_ACTIVE' ) ) {
 		new WDN_Plugin();
 	} catch( Exception $e ) {
 		$wdan_plugin_error_func = function () use ( $e ) {
-			$error = sprintf( "The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'Webcraftic Disable Admin Notices', $e->getMessage(), $e->getCode() );
+			$error = sprintf( "The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'Disable Admin Notices', $e->getMessage(), $e->getCode() );
 			echo '<div class="notice notice-error"><p>' . $error . '</p></div>';
 		};
 

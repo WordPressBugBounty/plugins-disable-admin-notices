@@ -76,15 +76,19 @@ class Migrations {
 	 */
 	public function check_migrations() {
 		if ( $this->is_migration_error() && isset( $_GET['wbcr_factory_fix_migration_error'] ) ) {
-			$this->fix_migration_error();
-			wp_safe_redirect( esc_url_raw(remove_query_arg( 'wbcr_factory_fix_migration_error' )) );
-			die();
+			if ( isset( $_GET['nonce'] ) && ! empty( $_GET['nonce'] ) && wp_verify_nonce( $_GET['nonce'], 'wbcr_han_fix_migration_error' ) ) {
+				$this->fix_migration_error();
+				wp_safe_redirect( esc_url_raw(remove_query_arg( 'wbcr_factory_fix_migration_error' )) );
+				die();
+			}
 		}
 
 		if ( $this->is_debug() && isset( $_GET['wbcr_factory_test_migration'] ) ) {
-			$this->make_migration();
-			wp_safe_redirect( esc_url_raw(remove_query_arg( 'wbcr_factory_test_migration' )) );
-			die();
+			if ( isset( $_GET['nonce'] ) && ! empty( $_GET['nonce'] ) && wp_verify_nonce( $_GET['nonce'], 'wbcr_han_migration' ) ) {
+				$this->make_migration();
+				wp_safe_redirect( esc_url_raw( remove_query_arg( array( 'wbcr_factory_test_migration', 'nonce' ) ) ) );
+				die();
+			}
 		}
 
 		if ( $this->need_migration() && ! $this->is_debug() ) {
@@ -126,7 +130,14 @@ class Migrations {
 			$migration_error_text = get_option( $this->plugin->getOptionName( 'plugin_migration_error' ), '' );
 		}
 
-		$fix_migration_error_url = esc_url(add_query_arg( 'wbcr_factory_fix_migration_error', 1 ));
+		$fix_migration_error_url = esc_url(
+			add_query_arg(
+				array(
+					'wbcr_factory_fix_migration_error' => 1,
+					'nonce'                            => wp_create_nonce( 'wbcr_han_fix_migration_error' ),
+				),
+			)
+		);
 
 		$notice_text = $migration_error_text;
 		$notice_text .= "<br><br><a href='{$fix_migration_error_url}' class='button button-default'>" . __( 'I fixed, confirm migration', 'wbcr_factory_480' ) . "</a>";
@@ -160,8 +171,14 @@ class Migrations {
 			return $notices;
 		}
 
-		$migrate_url = esc_url(add_query_arg( 'wbcr_factory_test_migration', 1 ));
-
+		$migrate_url = esc_url(
+			add_query_arg(
+				array(
+					'wbcr_factory_test_migration' => 1,
+					'nonce' => wp_create_nonce( 'wbcr_han_migration' ),
+				)
+			)
+		);
 		$notice_text = __( "Plugin activated:", "wbcr_factory_480" ) . ' ' . date( "Y-m-d H:i:s", $this->get_plugin_activated_time() ) . "<br>";
 
 		$notice_text .= __( "Old plugin version (debug):", "wbcr_factory_480" ) . ' ' . $this->get_old_plugin_version() . "<br>";
