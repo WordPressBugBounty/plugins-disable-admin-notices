@@ -101,6 +101,7 @@ class WDAN_Block_Ad_Redirects extends WDN_Page {
 		$redirects = $this->getPopulateOption( 'blocked_redirects', [] );
 
 		if ( isset( $_POST['wdan_add_block'] ) ) {
+			check_admin_referer( 'wdan_add_block_redirect' );
 			$url = $this->request()->post( 'wdan_redirect_url', null, 'sanitize_url' );
 
 			if ( ! empty( $url ) ) {
@@ -116,6 +117,7 @@ class WDAN_Block_Ad_Redirects extends WDN_Page {
 		<div style="padding:15px;">
 			<h4><?php esc_html_e( 'Block ad redirects', 'disable-admin-notices' ); ?></h4>
 			<form method="post">
+				<?php wp_nonce_field( 'wdan_add_block_redirect' ); ?>
 				<label for="wdan-redirect-url"><?php esc_html_e( 'Enter url for block', 'disable-admin-notices'); ?></label><br>
 				<input id="wdan-redirect-url" style="width:400px;" type="text" name="wdan_redirect_url">
 				<input type="submit" name="wdan_add_block" class="button" value="<?php esc_attr_e( 'Add block', 'disable-admin-notices' ); ?>">

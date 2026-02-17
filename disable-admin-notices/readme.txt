@@ -4,7 +4,7 @@ Contributors: themeisle
 Requires at least: 5.6
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2
 
 Disable admin notices and hide dashboard notifications from plugins, themes and core. Hide all notices, selected ones, or show them in a single line.
@@ -76,6 +76,13 @@ No. The plugin only affects standard admin notices and update notifications. Act
 5. Disable admin bar items
 
 == Changelog ==
+
+#####   Version 1.4.3 (2026-02-17)
+
+- Enhanced security
+
+
+
 
 #####   Version 1.4.2 (2026-01-13)
 

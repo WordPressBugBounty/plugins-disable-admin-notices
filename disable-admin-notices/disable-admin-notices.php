@@ -4,7 +4,7 @@
  * Plugin URI: https://clearfy.pro/disable-admin-notices
  * Description: Disable admin notices plugin gives you the option to hide updates warnings and inline notices in the admin panel.
  * Author: Themeisle
- * Version: 1.4.2
+ * Version: 1.4.3
  * Text Domain: disable-admin-notices
  * Domain Path: /languages/
  * Author URI: https://themeisle.com

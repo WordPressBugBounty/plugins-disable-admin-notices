@@ -1,3 +1,7 @@
+#####   Version 1.4.3 (2026-02-17)
+
+- Enhanced security
+
 #####   Version 1.4.2 (2026-01-13)
 
 - Improved UI and removed tooltip color

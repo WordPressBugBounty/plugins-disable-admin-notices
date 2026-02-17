@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/disable-admin-notices',
-        'pretty_version' => 'v1.4.2',
-        'version' => '1.4.2.0',
-        'reference' => '0936ab92f27b6062050b8a7a356e45fc8893566b',
+        'pretty_version' => 'v1.4.3',
+        'version' => '1.4.3.0',
+        'reference' => 'd0b007757b91fe07810ecd8790b15fcffb8b3448',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'codeinwp/disable-admin-notices' => array(
-            'pretty_version' => 'v1.4.2',
-            'version' => '1.4.2.0',
-            'reference' => '0936ab92f27b6062050b8a7a356e45fc8893566b',
+            'pretty_version' => 'v1.4.3',
+            'version' => '1.4.3.0',
+            'reference' => 'd0b007757b91fe07810ecd8790b15fcffb8b3448',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
