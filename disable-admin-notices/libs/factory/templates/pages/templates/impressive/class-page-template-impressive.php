@@ -593,10 +593,18 @@ if ( ! class_exists( 'WBCR\Factory_Templates_134\Impressive' ) ) {
 		protected function showHeader() {
 			?>
             <style>
-                .updated, .notice, .error
+                .updated, .notice:not(.themeisle-sale), .error
                 {
                     display: none !important;
                 }
+
+				.themeisle-sale .wbcr-dan-hide-links {
+					display: none;
+				}
+
+				.themeisle-sale {
+					margin-left: 0;
+				}
             </style>
             <div class="wbcr-factory-page-header">
                 <div class="wbcr-factory-header-logo"><?php echo $this->getPluginTitle(); ?>

@@ -52,6 +52,9 @@ class WDN_Plugin extends Wbcr_Factory480_Plugin {
 		add_filter( 'themeisle_sdk_products', [ __CLASS__, 'register_sdk' ] );
 
 		add_filter( 'themeisle_sdk_ran_promos', '__return_true' );
+
+		add_action( 'admin_enqueue_scripts', [ $this, 'mark_internal_page' ] );
+		add_filter( 'themeisle_sdk_blackfriday_data', [ $this, 'add_black_friday_data' ] );
 	}
 	/**
 	 * Register product into SDK.
@@ -103,5 +106,40 @@ class WDN_Plugin extends Wbcr_Factory480_Plugin {
 	private function global_scripts() {
 		require_once( WDN_PLUGIN_DIR . '/includes/classes/class-configurate-notices.php' );
 		new WDN_ConfigHideNotices( self::$app );
+	}
+
+	public function add_black_friday_data( $configs ) {
+		$config = $configs['default'];
+
+		if ( defined( 'NEVE_VERSION' ) ) {
+			return $configs;
+		}
+
+		// translators: 1. Number of free licenses, 2. The price of the product.
+		$config['message'] = sprintf( __( 'You\'re using Disable Admin Notices, and the team behind it is celebrating Black Friday by giving away %1$s licences of Neve Pro. A premium WordPress theme worth %2$s, packed with starter sites, a header builder, and WooCommerce layouts. Claim yours before they run out.', 'disable-admin-notices' ), 100, '$69' );
+		$config['cta_label'] = __( 'Get Neve Pro free', 'disable-admin-notices' );
+		$config['plugin_meta_message'] = __( 'Black Friday Sale - Get Neve Pro free', 'disable-admin-notices' );
+		$config['sale_url'] = add_query_arg(
+			array(
+				'utm_term' => 'free',
+			),
+			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/neve-claim-bf', 'bfcm', 'disable-notices' ) )
+		);
+
+		$configs[ WDN_PRODUCT_SLUG ] = $config;
+
+		return $configs;
+	}
+
+	public function mark_internal_page( $hook ) {
+		if ( strpos( $hook, 'wdan_settings' ) !== false ) {
+			do_action( 'themeisle_internal_page', WDN_PRODUCT_SLUG, 'settings' );
+		} elseif ( strpos( $hook, 'wdan-notices' ) !== false ) {
+			do_action( 'themeisle_internal_page', WDN_PRODUCT_SLUG, 'notices' );
+		} elseif ( strpos( $hook, 'wdanp-edit-redirects' ) !== false ) {
+			do_action( 'themeisle_internal_page', WDN_PRODUCT_SLUG, 'edit-redirects' );
+		} elseif ( strpos( $hook, 'wdanp-edit-admin-bar' ) !== false ) {
+			do_action( 'themeisle_internal_page', WDN_PRODUCT_SLUG, 'edit-admin-bar' );
+		}
 	}
 }
