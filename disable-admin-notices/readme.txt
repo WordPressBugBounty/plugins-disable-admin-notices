@@ -1,10 +1,10 @@
 === Disable Admin Notices - Hide Dashboard Notifications  ===
-Tags: nnotifications, hide admin notices, hide admin notifications, admin notices, update notifications
+Tags: admin notices, hide admin notices, notices, dashboard notifications, dismiss notices
 Contributors: themeisle
 Requires at least: 5.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2
 
 Disable admin notices and hide dashboard notifications from plugins, themes and core. Hide all notices, selected ones, or show them in a single line.
@@ -52,7 +52,7 @@ We’re here to help. Feel free to open a new thread on the [Support Forum](htt
 
 No. Hiding or disabling admin notices does not affect how plugins or themes function. It only removes or moves the visual notifications they display in the dashboard.
 
-=  A notice I hid is gone, but I need it back. How do I restore hidden notices? =
+= A notice I hid is gone, but I need it back. How do I restore hidden notices? =
 
 You can restore any hidden notice at any time. Go to **Settings → Hide admin notices → Hidden Notices**, where you’ll find a list of all notices you have hidden. From there, you can restore individual notices.
 
@@ -76,6 +76,13 @@ No. The plugin only affects standard admin notices and update notifications. Act
 5. Disable admin bar items
 
 == Changelog ==
+
+#####   Version 1.4.5 (2026-05-25)
+
+- Updated dependencies
+
+
+
 
 #####   Version 1.4.4 (2026-04-09)
 
