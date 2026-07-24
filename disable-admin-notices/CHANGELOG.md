@@ -1,3 +1,9 @@
+#####   Version 1.4.6 (2026-07-24)
+
+- Fixed an issue where admin bar items you chose to hide were still visible when viewing the sites frontend.
+- Updated dependencies
+- Enhanced security
+
 #####   Version 1.4.5 (2026-05-25)
 
 - Updated dependencies

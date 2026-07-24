@@ -9,8 +9,6 @@
  */
 
 // Exit if accessed directly
-//use WBCR\Factory_Adverts_159\Base;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -106,6 +104,38 @@ class WDN_Plugin extends Wbcr_Factory480_Plugin {
 	private function global_scripts() {
 		require_once( WDN_PLUGIN_DIR . '/includes/classes/class-configurate-notices.php' );
 		new WDN_ConfigHideNotices( self::$app );
+
+		add_action( 'wp_before_admin_bar_render', [ $this, 'remove_from_admin_bar' ], 999 );
+	}
+
+	public function remove_from_admin_bar() {
+		global $wp_admin_bar;
+
+		if ( empty( $wp_admin_bar ) ) {
+			return;
+		}
+
+		$hidden_items = $this->getPopulateOption( 'hidden_adminbar_items', [] );
+
+		if ( is_admin() ) {
+			$nodes = [];
+			foreach ( $wp_admin_bar->get_nodes() as $node ) {
+				if ( false === $node->parent && ! empty( $node->title ) ) {
+					if ( "updates" === $node->id ) {
+						$node->title = "Updates";
+					}
+					if ( "comments" === $node->id ) {
+						$node->title = "Comments";
+					}
+					$nodes[ $node->id ] = strip_tags( $node->title );
+				}
+			}
+			$this->updatePopulateOption( 'adminbar_items', $nodes );
+		}
+
+		foreach ( (array) $hidden_items as $item_ID => $bool ) {
+			$wp_admin_bar->remove_menu( $item_ID );
+		}
 	}
 
 	public function add_black_friday_data( $configs ) {

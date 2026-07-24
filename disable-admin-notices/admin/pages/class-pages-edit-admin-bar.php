@@ -56,8 +56,6 @@ class WDAN_Edit_Admin_Bar extends WDN_Page {
 		parent::__construct( $plugin );
 
 		$this->plugin = $plugin;
-
-		add_action( 'wp_before_admin_bar_render', [ $this, 'remove_from_admin_bar' ], 999 );
 	}
 
 	/**
@@ -77,35 +75,6 @@ class WDAN_Edit_Admin_Bar extends WDN_Page {
 		$this->scripts->add( WDN_PLUGIN_URL . '/admin/assets/js/settings.js', [
 			'jquery'
 		] );
-	}
-
-	public function remove_from_admin_bar() {
-		global $wp_admin_bar;
-
-		if ( empty( $wp_admin_bar ) ) {
-			return;
-		}
-
-		$hidden_items = $this->plugin->getPopulateOption( 'hidden_adminbar_items', [] );
-
-		$nodes = [];
-		foreach ( $wp_admin_bar->get_nodes() as $node ) {
-			if ( false === $node->parent && ! empty( $node->title ) ) {
-				if ( "updates" === $node->id ) {
-					$node->title = "Updates";
-				}
-				if ( "comments" === $node->id ) {
-					$node->title = "Comments";
-				}
-				$nodes[ $node->id ] = strip_tags( $node->title );
-			}
-		}
-
-		$this->plugin->updatePopulateOption( 'adminbar_items', $nodes );
-
-		foreach ( (array) $hidden_items as $item_ID => $bool ) {
-			$wp_admin_bar->remove_menu( $item_ID );
-		}
 	}
 
 	public function disableAdminbarItemAction() {
