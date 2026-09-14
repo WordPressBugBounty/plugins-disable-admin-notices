@@ -234,6 +234,13 @@ class WDN_ConfigHideNotices extends WBCR\Factory_Templates_134\Configurate {
 						continue;
 					}
 
+					// #63: a third-party callback can stop being callable by the time
+					// we replay it (e.g. a class method removed at runtime). Skip it
+					// instead of fataling the whole admin request.
+					if ( ! is_callable( $callback['function'] ) ) {
+						continue;
+					}
+
 					ob_start();
 
 					// #CLRF-140 fix bug for php7

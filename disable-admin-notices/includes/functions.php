@@ -50,6 +50,12 @@ function wdan_collect_notices( $key ) {
 					continue;
 				}
 
+				// #63: skip callbacks that are no longer callable instead of
+				// fataling the whole admin request.
+				if ( ! is_callable( $callback['function'] ) ) {
+					continue;
+				}
+
 				ob_start();
 
 				// #CLRF-140 fix bug for php7

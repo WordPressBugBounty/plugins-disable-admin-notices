@@ -1,3 +1,8 @@
+#####   Version 1.4.8 (2026-09-14)
+
+- Fixed admin screens crashing when a notice callback is unavailable.
+- Updated dependencies
+
 #####   Version 1.4.7 (2026-07-29)
 
 - Updated dependencies
