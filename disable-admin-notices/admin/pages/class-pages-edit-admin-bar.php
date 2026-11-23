@@ -130,10 +130,10 @@ class WDAN_Edit_Admin_Bar extends WDN_Page {
 								<button type="button" class="btn btn-default btn-small btn-sm factory-on<?php echo esc_attr( ! $is_item_hidden ? ' active' : '' ); ?>">
 									<?php esc_html_e( 'On ', 'disable-admin-notices' ); ?>
 								</button>
-								<button type="button" class="btn btn-default btn-small btn-sm factory-off<?php echo esc_attr( ! $is_item_hidden ? ' active' : '' ); ?>" data-value="0">
+								<button type="button" class="btn btn-default btn-small btn-sm factory-off<?php echo esc_attr( $is_item_hidden ? ' active' : '' ); ?>" data-value="0">
 									<?php esc_html_e( 'Off', 'disable-admin-notices' ); ?>
 								</button>
-								<input type="checkbox" style="display: none" class="factory-result" value="<?php echo esc_attr( ! $is_item_hidden ? '1' : '0' ); ?>" checked="<?php echo esc_attr( ! $is_item_hidden ? 'checked' : '' ); ?>">
+								<input type="checkbox" style="display: none" class="factory-result" value="<?php echo esc_attr( ! $is_item_hidden ? '1' : '0' ); ?>"<?php checked( ! $is_item_hidden ); ?>>
 							</div>
 						</td>
 					</tr>

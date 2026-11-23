@@ -162,19 +162,18 @@ trait Options {
 	}
 
 	/**
-	 * Позволяет получить сетевые опции. Если плагин установлен для сети (в режиме мультисайтов), то
-	 * метод возвращает опции только для сети, иначе метод возвращает опцию для текущего сайта.
+	 * Allows for the retrieval of network options. If the plugin is installed for the network (in multisite mode), the method returns options
+	 * specific to the network; otherwise, it returns the option for the current site.
 	 *
-	 * Опция вытаскивается из объектного кеша, после выполнения метода self:loadAllNetworkOptions,
-	 * а не напрямую из базы данных, из-за чего при работе с некоторыми кеширующими плагинами,
-	 * может быть странное поведение в работе плагина.
+	 * The option is retrieved from the object cache following the execution of the `self:loadAllNetworkOptions` method.
+	 * If the value has been evicted from the cache but the load flag remains, the option is read from the database.
 	 *
-	 * @since 4.0.8 - Добавлен
+	 * @since 4.0.8 - Added
 	 *
-	 * @param string $option_name   Имя опции без префикса.
-	 * @param mixed  $default       Значение по умолчанию. Если опции нет в базе данных, будет возвращено это значение. По умолчанию false
+	 * @param string $option_name   Option name without prefix.
+	 * @param mixed  $default       Default value. If the option is not in the database, this value will be returned. Default is false
 	 *
-	 * @return mixed Возвращает значение опции, если это сериализованная строка, то автоматически распаковывает ее.
+	 * @return mixed Returns the option value. If it is a serialized string, it will be automatically unserialized.
 	 */
 	public function getNetworkOption( $option_name, $default = false ) {
 		if ( empty( $option_name ) || ! is_string( $option_name ) ) {
@@ -192,33 +191,36 @@ trait Options {
 		$option_value = wp_cache_get( $cache_key, $this->getPrefix() . 'network_options' );
 
 		if ( false === $option_value ) {
+			$option_value = $this->normalizeValue( get_network_option( $network_id, $this->getPrefix() . $option_name ) );
+		}
+
+		if ( false === $option_value ) {
 			$option_value = $default;
 		}
 
 		/**
-		 * Фильтр позволяет отфильтровать возвращаемое значение сетевой опции.
+		 * The filter allows you to filter the return value of a network option.
 		 *
-		 * @since 4.0.9 - Добавлен
+		 * @since 4.0.9 - Added
 		 *
-		 * @param mixed  $option_value   Значение опции
-		 * @param string $option_name    Имя опции
-		 * @param mixed  $default        Значение опции по умолчанию
-		 * @param int    $network_id     ID сети
+		 * @param mixed  $option_value   Option value
+		 * @param string $option_name    Option name
+		 * @param mixed  $default        Default option value
+		 * @param int    $network_id     Network ID
 		 */
 
 		return apply_filters( "wbcr/factory/network_option_{$option_name}", $option_value, $option_name, $default, $network_id );
 	}
 
 	/**
-	 * Метод позволяет получить опцию для текущего сайта. Опция вытаскивается из объектного кеша, после выполнения метода
-	 * self:loadAllOptions, а не напрямую из базы данных, из-за чего при работе с некоторыми кеширующими плагинами,
-	 * может быть странное поведение в работе плагина.
+	 * This method allows you to retrieve an option for the current site. The option is fetched from the object cache after the `self::loadAllOptions`
+	 * method has been executed. If the value has been evicted from the cache but the loading flag remains, the option is read from the database.
 	 *
-	 * @since 4.0.0 - Добавлен
-	 * @since 4.0.8 - Полностью переделан
+	 * @since 4.0.0 - Added
+	 * @since 4.0.8 - Completely redesigned
 	 *
-	 * @param string $option_name   Имя опции без префикса.
-	 * @param mixed  $default       Значение по умолчанию. Если опции нет в базе данных, будет возвращено это значение. По умолчанию false
+	 * @param string $option_name   Option name without a prefix.
+	 * @param mixed  $default       Default value. If the option is not in the database, this value will be returned. Default is false
 	 *
 	 * @return mixed
 	 */
@@ -232,17 +234,21 @@ trait Options {
 		$option_value = wp_cache_get( $this->getPrefix() . $option_name, $this->getPrefix() . 'options' );
 
 		if ( false === $option_value ) {
+			$option_value = $this->normalizeValue( get_option( $this->getPrefix() . $option_name ) );
+		}
+
+		if ( false === $option_value ) {
 			$option_value = $default;
 		}
 
 		/**
-		 * Фильтр позволяет отфильтровать возвращаемое значение опции сайта.
+		 * Filter allows you to filter the returned value of the site option.
 		 *
-		 * @since 4.0.9 - Добавлен
+		 * @since 4.0.9 - Added
 		 *
-		 * @param mixed  $option_value   Значение опции
-		 * @param string $option_name    Имя опции
-		 * @param mixed  $default        Значение опции по умолчанию
+		 * @param mixed  $option_value   Option value
+		 * @param string $option_name    Option name
+		 * @param mixed  $default        Default option value
 		 */
 
 		return apply_filters( "wbcr/factory/option_{$option_name}", $option_value, $option_name, $default );

@@ -1,3 +1,9 @@
+#####   Version 1.4.10 (2026-11-23)
+
+- Fixed toolbar items reappearing after changing another item.
+- Fixed globally hidden notices reappearing after cache eviction.
+- Updated dependencies
+
 #####   Version 1.4.9 (2026-10-28)
 
 - Updated dependencies

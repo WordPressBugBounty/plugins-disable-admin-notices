@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/disable-admin-notices',
-        'pretty_version' => 'v1.4.9',
-        'version' => '1.4.9.0',
-        'reference' => '70362254dca133afaba93cfdbe0bf965d029e977',
+        'pretty_version' => 'v1.4.10',
+        'version' => '1.4.10.0',
+        'reference' => '931e5b89f7fa04660317f218c5dfb3b499807061',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'codeinwp/disable-admin-notices' => array(
-            'pretty_version' => 'v1.4.9',
-            'version' => '1.4.9.0',
-            'reference' => '70362254dca133afaba93cfdbe0bf965d029e977',
+            'pretty_version' => 'v1.4.10',
+            'version' => '1.4.10.0',
+            'reference' => '931e5b89f7fa04660317f218c5dfb3b499807061',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'codeinwp/themeisle-sdk' => array(
-            'pretty_version' => '3.3.68',
-            'version' => '3.3.68.0',
-            'reference' => '8477d5100ffdddd316a3e51129d775d8854d8a77',
+            'pretty_version' => '3.3.72',
+            'version' => '3.3.72.0',
+            'reference' => '66036fa0ef8168f7e5a3f7bf06dc88733e1d46db',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
             'aliases' => array(),
